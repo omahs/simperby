@@ -182,7 +182,8 @@ pub async fn run_genesis_non_proposer(private_key: &str) {
         dir
     ))
     .await;
-    let ports = "";
+    let ports =
+        r#"{"dms-consensus-0-3f22f0a0":1166,"repository":1177,"dms-governance-0-3f22f0a0":1155}"#;
     let ports = serde_json::from_str(ports).unwrap();
     setup_peer(
         &dir,
