@@ -172,6 +172,16 @@ pub async fn run_genesis_non_proposer(private_key: &str) {
         dir
     ))
     .await;
+    run_command(format!(
+        "cd {}/repository/repo && git branch work origin/work && git branch fp origin/fp",
+        dir
+    ))
+    .await;
+    run_command(format!(
+        "cd {}/repository/repo && git remote remove origin",
+        dir
+    ))
+    .await;
     let ports = "";
     let ports = serde_json::from_str(ports).unwrap();
     setup_peer(
