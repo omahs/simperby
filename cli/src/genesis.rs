@@ -113,11 +113,12 @@ pub async fn run_genesis_proposer(private_key: &str) {
         serde_json::to_string(&node.network_config().ports).unwrap()
     );
     node.create_agenda().await.unwrap();
+    run_command(format!("cd {}/repository/repo && git show", dir)).await;
 
     println!("PRESS ENTER TO RUN SERVER -------- [A]");
     get_input();
     println!("SERVE STARTED -------- [A]");
-    let mut node = node.serve(30000).await.unwrap();
+    let mut node = node.serve(20000).await.unwrap();
     println!("SERVE FINISHED");
     node.fetch().await.unwrap();
 
@@ -127,7 +128,7 @@ pub async fn run_genesis_proposer(private_key: &str) {
     println!("PRESS ENTER TO RUN SERVER -------- [B]");
     get_input();
     println!("SERVE STARTED -------- [B]");
-    let mut node = node.serve(30000).await.unwrap();
+    let mut node = node.serve(20000).await.unwrap();
     println!("SERVE FINISHED");
 
     println!("STEP 2");
@@ -135,7 +136,7 @@ pub async fn run_genesis_proposer(private_key: &str) {
     println!("PRESS ENTER TO RUN SERVER -------- [C]");
     get_input();
     println!("SERVE STARTED -------- [C]");
-    let mut node = node.serve(30000).await.unwrap();
+    let mut node = node.serve(20000).await.unwrap();
     println!("SERVE FINISHED");
 
     println!("STEP 3");
@@ -143,7 +144,7 @@ pub async fn run_genesis_proposer(private_key: &str) {
     println!("PRESS ENTER TO RUN SERVER -------- [D]");
     get_input();
     println!("SERVE STARTED -------- [D]");
-    let _node = node.serve(30000).await.unwrap();
+    let _node = node.serve(20000).await.unwrap();
     println!("SERVE FINISHED");
 
     run_command(format!(

@@ -62,6 +62,7 @@ impl SimperbyNode {
         // Step 1: initialize configs
         let last_finalized_header = repository.get_last_finalized_block_header().await?;
         let reserved_state = repository.get_reserved_state().await?;
+        println!("---------GS: {:?}" reserved_state.get_governance_set());
         let governance_dms_key = simperby_governance::generate_dms_key(&last_finalized_header);
         let consensus_dms_key = simperby_consensus::generate_dms_key(&last_finalized_header);
         let network_config = NetworkConfig {
@@ -340,6 +341,7 @@ impl<N: GossipNetwork, S: Storage, R: RawRepository> SimperbyApi for Node<N, S, 
             .into_iter()
             .collect::<HashMap<_, _>>();
         let governance_state = self.governance.read().await?;
+
         let votes: Vec<(Hash256, VotingPower)> = governance_state
             .votes
             .iter()
@@ -353,6 +355,7 @@ impl<N: GossipNetwork, S: Storage, R: RawRepository> SimperbyApi for Node<N, S, 
                 )
             })
             .collect();
+        println!("{:?}", votes);
         let total_voting_power = governance_set.values().sum::<VotingPower>();
         for (agenda, voted_power) in votes {
             if voted_power * 2 > total_voting_power {
